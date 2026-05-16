@@ -1,24 +1,22 @@
-solutions = []
-for x in range(1, 10):
-    for o in range(0, 10):
-        if o == x:
-            continue
-        for d in range(0, 10):
-            if d in (x, o):
-                continue
-            for m in range(1, 10):
-                if m in (x, o, d):
-                    continue
-                for a in range(0, 10):
-                    if a in (x, o, d, m):
-                        continue
-                    for t in range(0, 10):
-                        if t in (x, o, d, m, a):
-                            continue
-                        hod = x * 100 + o * 10 + d
-                        mat = m * 100 + a * 10 + t
-                        if hod * 3 == mat:
-                            solutions.append(f"{hod}+{hod}+{hod}={mat}")
+for hod in range(100, 334):  
+    X = hod // 100
+    O = (hod // 10) % 10
+    D = hod % 10
 
-for sol in sorted(solutions):
-    print(sol)
+    if X == O or X == D or O == D:
+        continue
+
+    mat = hod * 3
+    if mat >= 1000:
+        continue
+
+    M = mat // 100
+    A = (mat // 10) % 10
+    T = mat % 10
+
+    if M == A or M == T or A == T:
+        continue
+
+    # Проверка, что все 6 букв разные цифры
+    if len({X, O, D, M, A, T}) == 6:
+        print(f"{hod}+{hod}+{hod}={mat}")
